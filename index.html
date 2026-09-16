@@ -381,6 +381,9 @@ footer .fstores svg{width:14px;height:14px}
   .nav .btn.hidebar{visibility:hidden}
 }
 @media (max-width:420px){.hero h1{font-size:36px;line-height:1.15}.hero h1 .kick{font-size:15px}.chip-proof{font-size:12px;padding:6px 11px}.mid h2{font-size:24px}}
+
+/* 성능: 첫 화면 아래 섹션은 화면에 가까워질 때 그리기 */
+#story,#who,#feature,#share,#box,#gear,#mid,#reviews,#partner,#faq,#support,#download{content-visibility:auto;contain-intrinsic-size:auto 700px}
 </style>
 <noscript><style>.rv{opacity:1;transform:none}</style></noscript>
 <script>document.documentElement.className+=" js"</script>
@@ -717,7 +720,8 @@ footer .fstores svg{width:14px;height:14px}
   const ms=document.getElementById('midstack');if(ms){new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){ms.classList.add('go')}}),{threshold:.5}).observe(ms)}
   // 모바일: OS에 맞는 스토어 버튼 1개만
   const ua=navigator.userAgent||'';const isIOS=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);const isAnd=!isIOS&&/Android/.test(ua);
-  if(innerWidth<=900&&(isIOS||isAnd)){document.querySelectorAll('.store').forEach(b=>{if((isIOS&&b.classList.contains('and'))||(isAnd&&b.classList.contains('ios')))b.classList.add('hide')})}
+  const narrow=innerWidth<=900;
+  if(narrow&&(isIOS||isAnd)){document.querySelectorAll('.store').forEach(b=>{if((isIOS&&b.classList.contains('and'))||(isAnd&&b.classList.contains('ios')))b.classList.add('hide')})}
   // 하단 바 (모바일): 히어로 벗어나면 표시, 마지막 CTA 보이면 숨김
   const bar=document.getElementById('bar'),hero=document.getElementById('top'),dl=document.getElementById('download'),navcta=document.getElementById('navcta');
   let heroOut=false,dlIn=false;const upd=()=>{const show=heroOut&&!dlIn;bar.classList.toggle('show',show);navcta.classList.toggle('hidebar',show);document.body.classList.toggle('barpad',show)};
